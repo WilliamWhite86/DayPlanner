@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <nav><div id= "clock"></div></nav>
+    <div class= "time"><p>8:00</p><div class="inputText"><input></input></div><button class="submitButton">Submit</button></div>
+    <div class= "time"><p>9:00</p><div class="inputText"><input></input></div><button class="submitButton">Submit</button></div>
+    <div class= "time"><p>10:00</p><div class="inputText"><input></input></div><button class="submitButton">Submit</button></div>
+    <div class= "time"><p>11:00</p><div class="inputText"><input></input></div><button class="submitButton">Submit</button></div>
+    <div class= "time"><p>12:00</p><div class="inputText"><input></input></div><button class="submitButton">Submit</button></div>
+    <div class= "time"><p>1:00</p><div class="inputText"><input></input></div><button class="submitButton">Submit</button></div>
+    <div class= "time"><p>2:00</p><div class="inputText"><input></input></div><button class="submitButton">Submit</button></div>
+    <div class= "time"><p>3:00</p><div class="inputText"><input></input></div><button class="submitButton">Submit</button></div>
+    <div class= "time"><p>4:00</p><div class="inputText"><input></input></div><button class="submitButton">Submit</button></div>
+    <div class= "time"><p>5:00</p><div class="inputText"><input></input></div><button class="submitButton">Submit</button></div>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="moment.min.js"></script>
+    <script>
+        var appointText = "";
+        var appointTime = "";
+        var currentDate;
+
+        
+
+        $(window).on("load", function(){
+            currentDate = moment().format("MMM Do YY");
+            $( "#clock" ).append(currentDate);
+        });
+
+        $(".submitButton").click(function () {
+            appointText = $( this ).parent('div').children('div').children('input').val();
+            appointTime = $( this ).parent('div').children('p').text();
+            localStorage.setItem('appointments', JSON.stringify({time:appointTime, details: appointText}));
+            $(this).parent('div').children('div').children('input').replaceWith($('<p>' + appointText + '</p>'));
+        })
+
+    </script>
+</body>
+
+</html>
+
+
+
+
+<!-- button .click function () {
+item appended to localstorage}
+
+
+
+for each hour should be a save feature
+
+parent and child in JQuery - important to know what they're clicking on for time -->
