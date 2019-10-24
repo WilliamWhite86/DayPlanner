@@ -20,48 +20,75 @@
         <p id="currentDay" class="lead"></p>
     </header>
     <div class="container">
-        <div class="time">
-            <p>8:00</p>
-            <div class="inputText"><input></input></div><button class="submitButton">Submit</button>
-        </div>
-        <div class="time">
-            <p>9:00</p>
-            <div class="inputText"><input></input></div><button class="submitButton">Submit</button>
-        </div>
-        <div class="time">
-            <p>10:00</p>
-            <div class="inputText"><input></input></div><button class="submitButton">Submit</button>
-        </div>
-        <div class="time">
-            <p>11:00</p>
-            <div class="inputText"><input></input></div><button class="submitButton">Submit</button>
-        </div>
-        <div class="time">
-            <p>12:00</p>
-            <div class="inputText"><input></input></div><button class="submitButton">Submit</button>
-        </div>
-        <div class="time">
-            <p>1:00</p>
-            <div class="inputText"><input></input></div><button class="submitButton">Submit</button>
-        </div>
-        <div class="time">
-            <p>2:00</p>
-            <div class="inputText"><input></input></div><button class="submitButton">Submit</button>
-        </div>
-        <div class="time">
-            <p>3:00</p>
-            <div class="inputText"><input></input></div><button class="submitButton">Submit</button>
-        </div>
-        <div class="time">
-            <p>4:00</p>
-            <div class="inputText"><input></input></div><button class="submitButton">Submit</button>
-        </div>
-        <div class="time">
-            <p>5:00</p>
-            <div class="inputText"><input></input></div><button class="submitButton">Submit</button>
+        <div class="row h-100">
+            <p class="col-sm-1 my-auto text-right">8:00</p>
+            <div class="inputText col-sm-8"><textarea class="form-control" rows="3"></textarea></div><button
+                class="submitButton col-sm-2">Submit</button>
         </div>
     </div>
-
+    <div class="container">
+        <div class="row h-100">
+            <p class="col-sm-1 my-auto text-right">9:00</p>
+            <div class="inputText col-sm-8"><textarea class="form-control" rows="3"></textarea></div><button
+                class="submitButton col-sm-2">Submit</button>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row h-100">
+            <p class="col-sm-1 my-auto text-right">10:00</p>
+            <div class="inputText col-sm-8"><textarea class="form-control" rows="3"></textarea></div><button
+                class="submitButton col-sm-2">Submit</button>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row h-100">
+            <p class="col-sm-1 my-auto text-right">11:00</p>
+            <div class="inputText col-sm-8"><textarea class="form-control" rows="3"></textarea></div><button
+                class="submitButton col-sm-2">Submit</button>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row h-100">
+            <p class="col-sm-1 my-auto text-right">12:00</p>
+            <div class="inputText col-sm-8"><textarea class="form-control" rows="3"></textarea></div><button
+                class="submitButton col-sm-2">Submit</button>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row h-100">
+            <p class="col-sm-1 my-auto text-right">1:00</p>
+            <div class="inputText col-sm-8"><textarea class="form-control" rows="3"></textarea></div><button
+                class="submitButton col-sm-2">Submit</button>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row h-100">
+            <p class="col-sm-1 my-auto text-right">2:00</p>
+            <div class="inputText col-sm-8"><textarea class="form-control" rows="3"></textarea></div><button
+                class="submitButton col-sm-2">Submit</button>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row h-100">
+            <p class="col-sm-1 my-auto text-right">3:00</p>
+            <div class="inputText col-sm-8"><textarea class="form-control" rows="3"></textarea></div><button
+                class="submitButton col-sm-2">Submit</button>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row h-100">
+            <p class="col-sm-1 my-auto text-right">4:00</p>
+            <div class="inputText col-sm-8"><textarea class="form-control" rows="3"></textarea></div><button
+                class="submitButton col-sm-2">Submit</button>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row h-100">
+            <p class="col-sm-1 my-auto text-right">5:00</p>
+            <div class="inputText col-sm-8"><textarea class="form-control" rows="3"></textarea></div><button
+                class="submitButton col-sm-2">Submit</button>
+        </div>
+    </div>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
     <script>
@@ -77,10 +104,10 @@
         });
 
         $(".submitButton").click(function () {
-            appointText = $(this).parent('div').children('div').children('input').val();
+            appointText = $(this).parent('div').children('div').children('textarea').val();
             appointTime = $(this).parent('div').children('p').text();
             localStorage.setItem('appointments', JSON.stringify({ time: appointTime, details: appointText }));
-            $(this).parent('div').children('div').children('input').replaceWith($('<p>' + appointText + '</p>'));
+            $(this).parent('div').children('div').children('textarea').replaceWith($('<p>' + appointText + '</p>'));
         })
 
     </script>
