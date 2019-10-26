@@ -22,7 +22,7 @@
     <div class="container" id="8">
         <div class="row h-100">
             <p class="col-sm-1 my-auto text-right">8:00</p>
-            <div class="inputText col-sm-8"><textarea class="form-control" rows="3"></textarea></div><button
+            <div class="inputText col-sm-8"><textarea class="form-control" rows="3" id="textarea"></textarea></div><button
                 class="submitButton col-sm-2">Submit</button>
         </div>
     </div>
@@ -47,42 +47,42 @@
                 class="submitButton col-sm-2">Submit</button>
         </div>
     </div>
-    <div class="container">
+    <div class="container" id="12">
         <div class="row h-100">
             <p class="col-sm-1 my-auto text-right">12:00</p>
             <div class="inputText col-sm-8"><textarea class="form-control" rows="3"></textarea></div><button
                 class="submitButton col-sm-2">Submit</button>
         </div>
     </div>
-    <div class="container">
+    <div class="container"id="1">
         <div class="row h-100">
             <p class="col-sm-1 my-auto text-right">1:00</p>
             <div class="inputText col-sm-8"><textarea class="form-control" rows="3"></textarea></div><button
                 class="submitButton col-sm-2">Submit</button>
         </div>
     </div>
-    <div class="container">
+    <div class="container"id="2">
         <div class="row h-100">
             <p class="col-sm-1 my-auto text-right">2:00</p>
             <div class="inputText col-sm-8"><textarea class="form-control" rows="3"></textarea></div><button
                 class="submitButton col-sm-2">Submit</button>
         </div>
     </div>
-    <div class="container">
+    <div class="container"id="3">
         <div class="row h-100">
             <p class="col-sm-1 my-auto text-right">3:00</p>
             <div class="inputText col-sm-8"><textarea class="form-control" rows="3"></textarea></div><button
                 class="submitButton col-sm-2">Submit</button>
         </div>
     </div>
-    <div class="container">
+    <div class="container"id="4">
         <div class="row h-100">
             <p class="col-sm-1 my-auto text-right">4:00</p>
             <div class="inputText col-sm-8"><textarea class="form-control" rows="3"></textarea></div><button
                 class="submitButton col-sm-2">Submit</button>
         </div>
     </div>
-    <div class="container">
+    <div class="container" id="5">
         <div class="row h-100">
             <p class="col-sm-1 my-auto text-right">5:00</p>
             <div class="inputText col-sm-8"><textarea class="form-control" rows="3"></textarea></div><button
@@ -99,6 +99,8 @@
         var currentTime;
         var currentContainer;
         var tempArray = [];
+        var storedAppointments;
+        var returnedAppointments;
 
 
 
@@ -108,47 +110,85 @@
             currentTime = moment().format("h");
             console.log(currentTime);
 
-            if(moment().format("h") == $(".container").data("value")){
-                console.log("true");
+            function renderAppointments(){
+                
+                
+                    
+                storedAppointments = JSON.parse(localStorage.getItem("appointments"));
+                if (storedAppointments !== null){
+                    for (i = 0; i < storedAppointments.length; i++){ 
+                    console.log(i);
+                    returnedAppointments = storedAppointments[i];
+                    console.log(returnedAppointments.details);
+                    details = returnedAppointments.details;
+                    // timeIndex = returnedAppointments.time;
+                    // console.log(timeIndex);
+                    if (details !== null){
+                        textIndex = $('#textarea').attr('data-value', i);
+                        console.log(textIndex);
+                        textIndex.replaceWith($('<p>' + details + '</p>'));
+                        }
+                    }
+                }
             }
+            
+            renderAppointments();
 
-            for (i=8; i<12; i++){
+
+            for (i = 8; i <= 12; i++) {
                 console.log(i);
                 CurrentContainer = i;
-                if(moment().format("h") >= i){
+                //if(moment().format("h") >= i){
+                if (currentTime >= i) {
                     console.log("true");
-                    console.log("#"+i);
+                    console.log("#" + i);
                     //CurrentContainer = i;
                     //CurrentContainer ="\""+"#"+i+"\"";
-                    $('#' + CurrentContainer).css("background-color","red");
+                    $('#' + CurrentContainer).css("background-color", "red");
                 }
-                else{
+                else if (currentTime <= 5) {
+                    $('#' + CurrentContainer).css("background-color", "red");
+                }
+                else {
                     console.log(false);
-                    $('#' + CurrentContainer).css("background-color","green");
+                    $('#' + CurrentContainer).css("background-color", "green");
                 }
             }
-        
-        });
+            console.log(currentTime);
+            for (i = 1; i <= 5; i++) {
+                CurrentContainer = i;
+                if (currentTime >= i && currentTime <= 5) {
+                    $('#' + CurrentContainer).css("background-color", "red");
+                    console.log(CurrentContainer);
+                }
+                else {
+                    $('#' + CurrentContainer).css("background-color", "green");
+                }
 
-        $(".submitButton").click(function () {
-            appointText = $(this).parent('div').children('div').children('textarea').val();
-            appointTime = $(this).parent('div').children('p').text();
-            appointment = {
-                time: appointTime, 
-                details: appointText}
-            tempArray = JSON.parse(localStorage.getItem("appointments"));
-            if (tempArray === null){
-                localStorage.setItem('appointments', JSON.stringify([{ time: appointTime, details: appointText }]));
-            }
-            else {
-                console.log(typeof tempArray);
-                console.log(typeof (appointment));
-                tempArray.push(appointment);
-                localStorage.setItem("appointments", JSON.stringify(tempArray));
-                
-            }
-            $(this).parent('div').children('div').children('textarea').replaceWith($('<p>' + appointText + '</p>'));
-        })
+            }})
+
+
+
+            $(".submitButton").click(function () {
+                appointText = $(this).parent('div').children('div').children('textarea').val();
+                appointTime = $(this).parent('div').children('p').text();
+                appointment = {
+                    time: appointTime,
+                    details: appointText
+                }
+                tempArray = JSON.parse(localStorage.getItem("appointments"));
+                if (tempArray === null) {
+                    localStorage.setItem('appointments', JSON.stringify([{ time: appointTime, details: appointText }]));
+                }
+                else {
+                    console.log(typeof tempArray);
+                    console.log(typeof (appointment));
+                    tempArray.push(appointment);
+                    localStorage.setItem("appointments", JSON.stringify(tempArray));
+
+                }
+                $(this).parent('div').children('div').children('textarea').replaceWith($('<p>' + appointText + '</p>'));
+            })
 
     </script>
 </body>
