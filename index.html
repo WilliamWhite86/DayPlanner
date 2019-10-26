@@ -19,28 +19,28 @@
         <p class="lead">A simple calendar app for scheduling your work day</p>
         <p id="currentDay" class="lead"></p>
     </header>
-    <div class="container">
+    <div class="container" id="8">
         <div class="row h-100">
             <p class="col-sm-1 my-auto text-right">8:00</p>
             <div class="inputText col-sm-8"><textarea class="form-control" rows="3"></textarea></div><button
                 class="submitButton col-sm-2">Submit</button>
         </div>
     </div>
-    <div class="container">
+    <div class="container" id="9">
         <div class="row h-100">
             <p class="col-sm-1 my-auto text-right">9:00</p>
             <div class="inputText col-sm-8"><textarea class="form-control" rows="3"></textarea></div><button
                 class="submitButton col-sm-2">Submit</button>
         </div>
     </div>
-    <div class="container">
+    <div class="container" id="10">
         <div class="row h-100">
             <p class="col-sm-1 my-auto text-right">10:00</p>
             <div class="inputText col-sm-8"><textarea class="form-control" rows="3"></textarea></div><button
                 class="submitButton col-sm-2">Submit</button>
         </div>
     </div>
-    <div class="container">
+    <div class="container" id="11">
         <div class="row h-100">
             <p class="col-sm-1 my-auto text-right">11:00</p>
             <div class="inputText col-sm-8"><textarea class="form-control" rows="3"></textarea></div><button
@@ -91,22 +91,62 @@
     </div>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/moment-timezone/0.5.26/moment-timezone-utils.js"></script> -->
     <script>
         var appointText = "";
         var appointTime = "";
         var currentDate;
+        var currentTime;
+        var currentContainer;
+        var tempArray = [];
 
 
 
         $(window).on("load", function () {
-            currentDate = moment().format("dddd MMM Do YYYY");
+            currentDate = moment().format("dddd MMM Do YYYY, h:mm:ss a");
             $("#currentDay").append(currentDate);
+            currentTime = moment().format("h");
+            console.log(currentTime);
+
+            if(moment().format("h") == $(".container").data("value")){
+                console.log("true");
+            }
+
+            for (i=8; i<12; i++){
+                console.log(i);
+                CurrentContainer = i;
+                if(moment().format("h") >= i){
+                    console.log("true");
+                    console.log("#"+i);
+                    //CurrentContainer = i;
+                    //CurrentContainer ="\""+"#"+i+"\"";
+                    $('#' + CurrentContainer).css("background-color","red");
+                }
+                else{
+                    console.log(false);
+                    $('#' + CurrentContainer).css("background-color","green");
+                }
+            }
+        
         });
 
         $(".submitButton").click(function () {
             appointText = $(this).parent('div').children('div').children('textarea').val();
             appointTime = $(this).parent('div').children('p').text();
-            localStorage.setItem('appointments', JSON.stringify({ time: appointTime, details: appointText }));
+            appointment = {
+                time: appointTime, 
+                details: appointText}
+            tempArray = JSON.parse(localStorage.getItem("appointments"));
+            if (tempArray === null){
+                localStorage.setItem('appointments', JSON.stringify([{ time: appointTime, details: appointText }]));
+            }
+            else {
+                console.log(typeof tempArray);
+                console.log(typeof (appointment));
+                tempArray.push(appointment);
+                localStorage.setItem("appointments", JSON.stringify(tempArray));
+                
+            }
             $(this).parent('div').children('div').children('textarea').replaceWith($('<p>' + appointText + '</p>'));
         })
 
