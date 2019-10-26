@@ -22,21 +22,21 @@
     <div class="container" id="8">
         <div class="row h-100">
             <p class="col-sm-1 my-auto text-right">8:00</p>
-            <div class="inputText col-sm-8"><textarea class="form-control" rows="3" id="textarea"></textarea></div><button
+            <div class="inputText col-sm-8"><textarea class="form-control" rows="3" id="textarea" data-value = "8:00"></textarea></div><button
                 class="submitButton col-sm-2">Submit</button>
         </div>
     </div>
     <div class="container" id="9">
         <div class="row h-100">
-            <p class="col-sm-1 my-auto text-right">9:00</p>
-            <div class="inputText col-sm-8"><textarea class="form-control" rows="3"></textarea></div><button
+            <p class="col-sm-1 my-auto text-right" data-value="9:00">9:00</p>
+            <div class="inputText col-sm-8"><textarea class="form-control" rows="3" id="textarea"></textarea></div><button
                 class="submitButton col-sm-2">Submit</button>
         </div>
     </div>
     <div class="container" id="10">
         <div class="row h-100">
             <p class="col-sm-1 my-auto text-right">10:00</p>
-            <div class="inputText col-sm-8"><textarea class="form-control" rows="3"></textarea></div><button
+            <div class="inputText col-sm-8"><textarea class="form-control" rows="3" id="textarea"></textarea></div><button
                 class="submitButton col-sm-2">Submit</button>
         </div>
     </div>
@@ -112,8 +112,6 @@
 
             function renderAppointments(){
                 
-                
-                    
                 storedAppointments = JSON.parse(localStorage.getItem("appointments"));
                 if (storedAppointments !== null){
                     for (i = 0; i < storedAppointments.length; i++){ 
@@ -121,12 +119,12 @@
                     returnedAppointments = storedAppointments[i];
                     console.log(returnedAppointments.details);
                     details = returnedAppointments.details;
-                    // timeIndex = returnedAppointments.time;
-                    // console.log(timeIndex);
+                    timeIndex = returnedAppointments.time;
+                    console.log(timeIndex);
                     if (details !== null){
-                        textIndex = $('#textarea').attr('data-value', i);
-                        console.log(textIndex);
-                        textIndex.replaceWith($('<p>' + details + '</p>'));
+                        //textIndex = $('#textarea').attr('data-value');
+                        //console.log(textIndex);
+                        $("#"+timeIndex).replaceWith($('<p>' + details + '</p>'));
                         }
                     }
                 }
@@ -136,12 +134,9 @@
 
 
             for (i = 8; i <= 12; i++) {
-                console.log(i);
                 CurrentContainer = i;
                 //if(moment().format("h") >= i){
                 if (currentTime >= i) {
-                    console.log("true");
-                    console.log("#" + i);
                     //CurrentContainer = i;
                     //CurrentContainer ="\""+"#"+i+"\"";
                     $('#' + CurrentContainer).css("background-color", "red");
