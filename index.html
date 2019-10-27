@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
         integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous" />
     <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="assets/css/style.css" />
     <title>Work Day Scheduler</title>
 </head>
 
@@ -85,93 +85,7 @@
     </div>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.24.0/moment.min.js"></script>
-    <script>
-        var appointText = "";
-        var appointTime = "";
-        var currentDate;
-        var currentTime;
-        var currentContainer;
-        var tempArray = [];
-        var storedAppointments;
-        var returnedAppointments;
-
-
-
-        $(window).on("load", function () {
-            currentDate = moment().format("dddd MMM Do YYYY, h:mm a");
-            $("#currentDay").append(currentDate);
-            currentTime = moment().format("H");
-            console.log(currentTime);
-
-            function renderAppointments() {
-                storedAppointments = JSON.parse(localStorage.getItem("appointments"));
-                if (storedAppointments !== null) {
-                    for (i = 0; i < storedAppointments.length; i++) {
-                        returnedAppointments = storedAppointments[i];
-                        details = returnedAppointments.details;
-                        timeIndex = returnedAppointments.time;
-                        timeIndex = timeIndex.replace(":00", '');
-                        console.log(timeIndex);
-                        if (details !== null) {
-                            $("#" + timeIndex).children('div').children('div').children('textarea').val(details);
-                        }
-                    }
-                }
-            }
-
-            renderAppointments();
-
-            for (i = 0; i <= 23; i++) {
-                CurrentContainer = i;
-                if (currentTime == i) {
-                    $('#' + CurrentContainer).css("background-color", "red");
-                }
-                else if(currentTime > i){
-                    $('#' + CurrentContainer).css("background-color", "grey");
-                }
-                else {
-                    console.log(false);
-                    $('#' + CurrentContainer).css("background-color", "green");
-                }
-            }
-        })
-
-
-
-        $(".submitButton").click(function () {
-            appointText = $(this).parent('div').children('div').children('textarea').val();
-            appointTime = $(this).parent('div').parent().attr("id");
-            appointment = {
-                time: appointTime,
-                details: appointText
-            }
-            tempArray = JSON.parse(localStorage.getItem("appointments"));
-            if (tempArray === null) {
-                localStorage.setItem('appointments', JSON.stringify([{ time: appointTime, details: appointText }]));
-            }
-            else {
-                console.log(typeof tempArray);
-                console.log(typeof (appointment));
-                tempArray.push(appointment);
-                localStorage.setItem("appointments", JSON.stringify(tempArray));
-
-            }
-            $(this).parent('div').children('div').children('textarea').replaceWith($('<p>' + appointText + '</p>'));
-        })
-
-    </script>
+    <script src="script.js"></script>
 </body>
 
 </html>
-
-
-
-
-<!-- button .click function () {
-item appended to localstorage}
-
-
-
-for each hour should be a save feature
-
-parent and child in JQuery - important to know what they're clicking on for time -->
