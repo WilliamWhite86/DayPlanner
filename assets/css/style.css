@@ -3,6 +3,10 @@ body {
     font-size: 16px;
     line-height: 1;
   }
+
+  .container{
+    height: 100px;
+  }
   
   textarea{
     background: transparent;
@@ -33,7 +37,7 @@ body {
   .row {
     white-space: pre-wrap;
     height: 80px;
-    border-top: 1px solid white;;
+    border-top: 1px solid white;
   }
   
   .hour {
